@@ -303,7 +303,7 @@ export const RunCommand = effectCmd({
       let message = [...args.message, ...(args["--"] || [])]
         .map((arg) => (arg.includes(" ") ? `"${arg.replace(/"/g, '\\"')}"` : arg))
         .join(" ")
-
+      // 启动目录
       const directory = (() => {
         if (!args.dir) return undefined
         if (args.attach) return args.dir
@@ -622,6 +622,7 @@ export const RunCommand = effectCmd({
           return name
         })()
 
+        // 生成sessionID
         const sessionID = await session(sdk)
         if (!sessionID) {
           UI.error("Session not found")
@@ -644,6 +645,7 @@ export const RunCommand = effectCmd({
             variant: args.variant,
           })
         } else {
+          // 调用大模型
           const model = args.model ? Provider.parseModel(args.model) : undefined
           await sdk.session.prompt({
             sessionID,
@@ -666,7 +668,7 @@ export const RunCommand = effectCmd({
         const sdk = createOpencodeClient({ baseUrl: args.attach, directory, headers })
         return await execute(sdk)
       }
-
+      // 启动服务端实例
       const fetchFn = (async (input: RequestInfo | URL, init?: RequestInit) => {
         const request = new Request(input, init)
         return Server.Default().app.fetch(request)

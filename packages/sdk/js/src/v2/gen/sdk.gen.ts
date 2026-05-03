@@ -3173,6 +3173,8 @@ export class Session2 extends HeyApiClient {
         },
       ],
     )
+    // 输出请求参数
+    console.log("prompt request:", { url: "/session/{sessionID}/message", parameters, params })
     return (options?.client ?? this.client).post<SessionPromptResponses, SessionPromptErrors, ThrowOnError>({
       url: "/session/{sessionID}/message",
       ...options,

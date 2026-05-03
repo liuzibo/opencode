@@ -158,6 +158,7 @@ const cli = yargs(args)
   .command(McpCommand)
   .command(TuiThreadCommand)
   .command(AttachCommand)
+  // 运行入口
   .command(RunCommand)
   .command(GenerateCommand)
   .command(DebugCommand)
@@ -199,6 +200,7 @@ try {
       show(out)
     })
   } else {
+    // 解析参数并运行
     await cli.parse()
   }
 } catch (e) {

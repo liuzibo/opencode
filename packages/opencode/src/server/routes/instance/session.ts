@@ -897,6 +897,7 @@ export const SessionRoutes = lazy(() =>
           const msg = await runRequest(
             "SessionRoutes.prompt",
             c,
+            // 调用大模型
             SessionPrompt.Service.use((svc) =>
               svc.prompt({ ...body, sessionID } as unknown as SessionPrompt.PromptInput),
             ),
